@@ -14,13 +14,24 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "ContactsPlugin",
+            name: "ContactsPluginObjC",
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm")
             ],
             path: "ios/Plugin",
-            exclude: ["Info.plist"]
+            sources: ["ContactsPlugin.m"],
+            publicHeadersPath: "."
+        ),
+        .target(
+            name: "ContactsPlugin",
+            dependencies: [
+                .product(name: "Capacitor", package: "capacitor-swift-pm"),
+                .product(name: "Cordova", package: "capacitor-swift-pm"),
+                "ContactsPluginObjC"
+            ],
+            path: "ios/Plugin",
+            exclude: ["Info.plist", "ContactsPlugin.m", "ContactsPlugin.h"]
         )
     ]
 )
